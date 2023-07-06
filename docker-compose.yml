@@ -1,0 +1,51 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: dolly
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: picasyfijas
+    container_name: picasyfijas-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    ports:
+      - 6001:6001
+    volumes:
+      - ./:/var/www
+    networks:
+      - picasyfijas
+
+  nginx:
+      image: nginx:alpine
+      container_name: picasyfijas-nginx
+      restart: unless-stopped
+      ports:
+        - 80:80
+      volumes:
+        - ./:/var/www
+        - ./docker-compose/nginx:/etc/nginx/conf.d/
+      networks:
+        - picasyfijas
+
+  postgres:
+    container_name: picasyfijas-postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_PORT: 5442
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5442:5432
+    volumes:
+        - postgres_data:/var/lib/postgresql/data
+    networks:
+      - picasyfijas
+
+volumes:
+    postgres_data:
+networks:
+  picasyfijas:
+    driver: bridge
