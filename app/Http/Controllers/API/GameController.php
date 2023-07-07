@@ -97,17 +97,9 @@ class GameController extends Controller
 
 
     
-    public function status(Request $request)
+    public function status()
     {
-        $request->validate([
-            'game_id' => 'required|exists:games,id',
-        ]);
-
-        $game = Game::find($request->game_id);
-        $player = $game->player;
-
-        // Aquí va la lógica para comprobar si el juego ha terminado.
-        
-        return response()->json(['game' => $game, 'player' => $player], 200);
+        $pocisiones = Player::where('availability', '==', 'off')->orderBy('position', 'asc')->get();
+        return response()->json($pocisiones, 200);
     }
 }
