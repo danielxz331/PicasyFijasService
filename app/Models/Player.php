@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Player extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'number', 'turn'];
+    protected $fillable = ['name', 'number', 'turn','availability', 'position'];
 
     public function games()
     {

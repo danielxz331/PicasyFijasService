@@ -23,7 +23,7 @@ services:
       container_name: picasyfijas-nginx
       restart: unless-stopped
       ports:
-        - 80:80
+        - 81:80
       volumes:
         - ./:/var/www
         - ./docker-compose/nginx:/etc/nginx/conf.d/

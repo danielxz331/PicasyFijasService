@@ -14,12 +14,13 @@ class PlayerController extends Controller
             'name' => 'required',
             'number' => 'required|size:4'
         ]);
-
     
         $player = new Player();
     
         $player->name = $request->name;
         $player->number = $request->number;
+        $player->availability = 'on';
+        $player->position = 0;
     
         // Obtenemos todos los turnos ya usados
         $usedTurns = Player::pluck('turn')->toArray();

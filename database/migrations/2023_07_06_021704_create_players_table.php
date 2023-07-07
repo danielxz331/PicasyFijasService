@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('number', 4)->unique();
             $table->integer('turn');
+            $table->string('availability');
+            $table->integer('position');
             $table->timestamps();
         });
     }
